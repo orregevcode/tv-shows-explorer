@@ -15,7 +15,8 @@ src/
 ├── main.tsx                  נקודת הכניסה. עוטף את App ב-BrowserRouter
 ├── App.tsx                   NavBar + הגדרת ה-Routes. קורא ל-useShows ול-useFavorites
 ├── index.css                 עיצוב גלובלי בלבד: צבעים, גופן, body
-├── types.ts                  הטיפוס Show: מה מגיע מה-API
+├── types/
+│   └── show.ts               הטיפוס Show: מה מגיע מה-API
 ├── data/
 │   └── sample-shows.json     סדרות לדוגמה, רק למשימה 1 (לפני ה-API)
 ├── api/
@@ -74,6 +75,7 @@ src/
 | קובץ CSS Module | אותו שם כמו הרכיב + `.module.css` | `ShowCard.module.css` |
 | קובץ hook | camelCase שמתחיל ב-`use` | `useShows.ts` |
 | קובץ לוגיקה או api | camelCase | `shows.ts`, `tvmaze.ts` |
+| קובץ טיפוסים | camelCase לפי הנושא, בתוך `types/` | `types/show.ts` |
 | קובץ בדיקה | שם הקובץ שנבדק + `.test.ts` | `shows.test.ts` |
 | קובץ מידע (JSON) | kebab-case | `sample-shows.json` |
 
@@ -103,12 +105,39 @@ src/
 - `App.tsx`, `main.tsx` ו-`index.css` נשארים בשמות של Vite.
 - `README.md`, `PRD.md`, `PROMPTS.md` ו-`tasks.md` נשארים בשמות שנקבעו בהוראות הפרויקט.
 
+## סגנון קוד
+
+**כל פונקציה היא arrow function בתוך `const`.** זה נכון לרכיבים, ל-hooks ולפונקציות הלוגיקה:
+
+```tsx
+const ShowCard = ({ show }: ShowCardProps) => {
+  return <article>...</article>
+}
+
+export default ShowCard
+```
+
+```ts
+export const filterShows = (shows: Show[], query: string, genre: string): Show[] => {
+  ...
+}
+```
+
+**exports:**
+- רכיבים ועמודים משתמשים ב-`export default` בשורה האחרונה של הקובץ, כי בכל קובץ יש רכיב אחד.
+- hooks, utils ו-api משתמשים ב-`export const` (named export), כי בקובץ אחד יכולות להיות כמה פונקציות.
+- טיפוסים מייבאים עם `import type`: `import type { Show } from '../../types/show'`.
+
+**עיצוב הקוד:**
+- גרשיים בודדים (`'...'`), ובלי `;` בסוף שורה, כמו בקבצים ש-Vite יצר.
+- arrow function לא זמינה לפני השורה שבה היא מוגדרת, כי אין לה hoisting כמו ל-`function`. לכן מגדירים פונקציה לפני שמשתמשים בה.
+
 ## עיצוב עם CSS Modules
 
 לכל רכיב ולכל עמוד יש קובץ `X.module.css` משלו, באותה תיקייה:
 
 ```tsx
-import styles from "./ShowCard.module.css";
+import styles from './ShowCard.module.css'
 
 <article className={styles.showCard}>...</article>
 ```
@@ -139,23 +168,23 @@ import styles from "./ShowCard.module.css";
 **הדפוס של hook שטוען מידע:**
 
 ```ts
-export function useShows() {
-  const [shows, setShows] = useState<Show[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export const useShows = () => {
+  const [shows, setShows] = useState<Show[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    let isCancelled = false;
+    let isCancelled = false
 
     fetchShows()
-      .then((data) => { if (!isCancelled) setShows(data); })
-      .catch(() => { if (!isCancelled) setError("לא הצלחנו לטעון את הסדרות"); })
-      .finally(() => { if (!isCancelled) setIsLoading(false); });
+      .then((data) => { if (!isCancelled) setShows(data) })
+      .catch(() => { if (!isCancelled) setError('לא הצלחנו לטעון את הסדרות') })
+      .finally(() => { if (!isCancelled) setIsLoading(false) })
 
-    return () => { isCancelled = true; };   // cleanup
-  }, []);
+    return () => { isCancelled = true }   // cleanup
+  }, [])
 
-  return { shows, isLoading, error };
+  return { shows, isLoading, error }
 }
 ```
 
@@ -235,18 +264,18 @@ graph TD
 ## הטיפוסים
 
 ```ts
-// src/types.ts
+// src/types/show.ts
 export interface Show {
-  id: number;
-  name: string;
-  genres: string[];
-  rating: { average: number | null };              // יש סדרות בלי דירוג
-  image: { medium: string; original: string } | null;
-  summary: string | null;                          // HTML, למשל "<p>...</p>"
-  premiered: string | null;
-  status: string;
-  language: string | null;
-  schedule: { time: string; days: string[] };
+  id: number
+  name: string
+  genres: string[]
+  rating: { average: number | null }              // יש סדרות בלי דירוג
+  image: { medium: string; original: string } | null
+  summary: string | null                          // HTML, למשל "<p>...</p>"
+  premiered: string | null
+  status: string
+  language: string | null
+  schedule: { time: string; days: string[] }
 }
 ```
 
@@ -283,7 +312,7 @@ export interface Show {
 
 | משימה | קבצים עיקריים |
 |---|---|
-| 1. רשימה מ-JSON מקומי | `types.ts`, `data/sample-shows.json`, `ShowList/`, `ShowCard/`, `HomePage/` |
+| 1. רשימה מ-JSON מקומי | `types/show.ts`, `data/sample-shows.json`, `ShowList/`, `ShowCard/`, `HomePage/` |
 | 2. ניתוב | `main.tsx`, `App.tsx`, `NavBar/`, `ShowDetailsPage/`, `NotFoundPage/` |
 | 3. fetch אמיתי, טעינה ושגיאה | `api/tvmaze.ts`, `hooks/useShows.ts`, `hooks/useShow.ts`, `StatusMessage/` |
 | 4. Vitest | `utils/shows.ts`, `utils/shows.test.ts`, `package.json` (`test`, `test:ui`) |

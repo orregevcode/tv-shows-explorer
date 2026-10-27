@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": 29,
+    "name": "Vikings",
+    "genres": ["Drama", "Action", "History"],
+    "rating": {"average": 8.6},
+    "image": {"medium": "https://static.tvmaze.com/uploads/images/medium_portrait/286/715906.jpg", "original": "https://static.tvmaze.com/uploads/images/original_untouched/286/715906.jpg"},
+    "summary": "<p><b>Vikings</b> transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.</p>",
+    "premiered": "2013-03-03",
+    "status": "Ended",
+    "language": "English",
+    "schedule": {"time": "21:00", "days": ["Friday"]}
+  },
+  {
+    "id": 32,
+    "name": "Fargo",
+    "genres": ["Drama", "Comedy", "Crime"],
+    "rating": {"average": 8.6},
+    "image": {"medium": "https://static.tvmaze.com/uploads/images/medium_portrait/487/1219631.jpg", "original": "https://static.tvmaze.com/uploads/images/original_untouched/487/1219631.jpg"},
+    "summary": "<p><b>Fargo </b>is a seasonal anthology crime drama with some dark comical elements, inspired by the film <i>Fargo</i> written by the Coen brothers. Each season follows a new case and new characters, all entrenched in the trademark humor, murder and \"Minnesota nice\" that has made the film an enduring classic.</p>",
+    "premiered": "2014-04-15",
+    "status": "To Be Determined",
+    "language": "English",
+    "schedule": {"time": "22:00", "days": ["Tuesday"]}
+  },
+  {
+    "id": 40,
+    "name": "Death Note",
+    "genres": ["Anime", "Fantasy", "Thriller"],
+    "rating": {"average": 8.8},
+    "image": {"medium": "https://static.tvmaze.com/uploads/images/medium_portrait/499/1249019.jpg", "original": "https://static.tvmaze.com/uploads/images/original_untouched/499/1249019.jpg"},
+    "summary": "<p><b>Death Note </b>is an anime series based around a manga of the same name whereby a human finds a death god's notebook. Any person's name written in this notebook will die. The main character who finds this noteboook is Light Yagami who faces off against an unfaced character named L who tries to challenge him.</p>",
+    "premiered": "2006-10-03",
+    "status": "Ended",
+    "language": "Japanese",
+    "schedule": {"time": "13:00", "days": ["Tuesday"]}
+  },
+  {
+    "id": 19,
+    "name": "Supernatural",
+    "genres": ["Drama", "Action", "Supernatural"],
+    "rating": {"average": 8.4},
+    "image": {"medium": "https://static.tvmaze.com/uploads/images/medium_portrait/445/1114097.jpg", "original": "https://static.tvmaze.com/uploads/images/original_untouched/445/1114097.jpg"},
+    "summary": "<p>This haunting series follows the Winchester brothers as they crisscross the lonely and mysterious back roads of the country in their '67 Chevy Impala, hunting down every evil supernatural force they encounter along the way.</p>",
+    "premiered": "2005-09-13",
+    "status": "Ended",
+    "language": "English",
+    "schedule": {"time": "20:00", "days": ["Thursday"]}
+  },
+  {
+    "id": 8,
+    "name": "Glee",
+    "genres": ["Drama", "Music", "Romance"],
+    "rating": {"average": 6.6},
+    "image": {"medium": "https://static.tvmaze.com/uploads/images/medium_portrait/0/73.jpg", "original": "https://static.tvmaze.com/uploads/images/original_untouched/0/73.jpg"},
+    "summary": "<p><b>Glee </b>is a musical comedy about a group of ambitious and talented young adults in search of strength, acceptance and, ultimately, their voice.</p>",
+    "premiered": "2009-05-19",
+    "status": "Running",
+    "language": "English",
+    "schedule": {"time": "", "days": ["Friday"]}
+  }
+]
