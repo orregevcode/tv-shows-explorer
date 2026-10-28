@@ -1,0 +1,15 @@
+.statusMessage {
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.loading {
+  color: var(--color-muted);
+}
+
+.error {
+  background: #fdecea;
+  color: #b3261e;
+}
