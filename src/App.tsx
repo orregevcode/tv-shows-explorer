@@ -8,7 +8,8 @@ import StatsPage from './pages/StatsPage/StatsPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 const App = () => {
-  // טוענים את כל הסדרות פעם אחת כאן, כי כמה עמודים צריכים אותן
+
+  // there is some props drilling in  here i pass the shows down in component 
   const { shows, isLoading, error } = useShows()
 
   return (
