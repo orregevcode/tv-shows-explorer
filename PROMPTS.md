@@ -17,3 +17,11 @@
 - Checked: `npm run build` and `npm run lint` pass, 240 shows load, "Loading show..." appears, `/shows/abc` shows "Show not found", no console errors.
 - Problems found while testing: `/shows/abc` stayed on "Loading..." forever, because `Number('abc')` is `NaN` and `NaN !== NaN`. Fixed with `Number.isInteger`. The linter warned about `setState` inside `useEffect`, fixed by storing the id together with the result in `useShow`.
 - Still to check myself: DevTools Network set to Offline shows the error message.
+
+**01:11 · Cursor**
+
+> Read docs/architecture.md and the code in src. Write PRD.md for this app: who it is for, why it exists, the pages (list, details, favorites, stats, 404), and what the user sees on each one. Add 5 acceptance lines in the format “When I…, I see…”. Link to docs/architecture.md at the end. No code changes
+
+**01:12 · Cursor**
+
+> Write tasks.md with up to 12 tasks in build order, following the table at the end of docs/architecture.md. Mark tasks 1–3 as done. Every task gets a “Done when:” line I can check in the browser or terminal. No code changes
