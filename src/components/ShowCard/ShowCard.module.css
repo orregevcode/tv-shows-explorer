@@ -8,6 +8,14 @@
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
 }
 
+.cardLink {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
 .poster,
 .noPoster {
   width: 100%;
