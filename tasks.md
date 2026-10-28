@@ -20,13 +20,13 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 **Done when:** Home shows “Loading shows...” then about 240 cards; a details page shows “Loading show...”; `/shows/abc` shows “Show not found”; with the network offline I see the error message. `npm run build` and `npm run lint` pass.
 
-## 4. Vitest
+## 4. Vitest — done
 
 `utils/shows.ts`, `utils/shows.test.ts`, `package.json` (`test`, `test:ui`)
 
 **Done when:** At least 5 tests pass with `npm test` (for `filterShows`, `stripHtml`, `averageRating`, `topRated`, and `toggleId`), and `npm run test:ui` shows them in the browser.
 
-## 5. Search and filter
+## 5. Search and filter — done
 
 `SearchBar/`, `GenreFilter/`, `HomePage/`
 

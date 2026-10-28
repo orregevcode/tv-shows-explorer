@@ -25,3 +25,10 @@
 **01:12 · Cursor**
 
 > Write tasks.md with up to 12 tasks in build order, following the table at the end of docs/architecture.md. Mark tasks 1–3 as done. Every task gets a “Done when:” line I can check in the browser or terminal. No code changes
+
+**01:38 · my note (PRD fix, Tasks 4–5)**
+
+- Cursor ran out of credits, so the PRD/tasks review fixes and Tasks 4 and 5 were done with Claude Code in a separate chat outside the project folder. Those prompts were not logged here.
+- PRD and tasks: after reviewing them, fixed 4 things: a search acceptance line, `test:ui` and at least 5 tests in Task 4, tests and the API in the README task, and a new Task 12 "Final check".
+- Task 4: installed Vitest 5.0.5 and `@vitest/ui`, added the `test` and `test:ui` scripts, and wrote 7 functions in `utils/shows.ts` with 18 tests. Claude checked: `npm test` passes 18/18, and `npm run test:ui` shows 18 pass. To make sure the tests catch bugs, it broke `filterShows` and `toggleId` on purpose, 3 tests failed, then it restored the file.
+- Task 5: added `SearchBar` and `GenreFilter`, with `query` and `genre` state in `HomePage`. Claude checked: "BREAK" shows only Breaking Bad, "BREAK" + Comedy shows "No shows found.", Anime shows 4 shows, phone width works, no console errors.
