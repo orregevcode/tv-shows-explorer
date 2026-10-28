@@ -24,7 +24,7 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 `utils/shows.ts`, `utils/shows.test.ts`, `package.json` (`test`, `test:ui`)
 
-**Done when:** `npm test` runs and passes for `filterShows`, `stripHtml`, `averageRating`, `topRated`, and `toggleId`.
+**Done when:** At least 5 tests pass with `npm test` (for `filterShows`, `stripHtml`, `averageRating`, `topRated`, and `toggleId`), and `npm run test:ui` shows them in the browser.
 
 ## 5. Search and filter
 
@@ -66,4 +66,8 @@ All `.module.css` files, `index.css`
 
 `README.md`
 
-**Done when:** `README.md` says what the app is, how to install, and how to run `npm run dev` (and tests if they exist).
+**Done when:** `README.md` says what the app does, how to install and run it (`npm run dev`), how to run the tests (`npm test`, `npm run test:ui`), and which API it uses (TVmaze).
+
+## 12. Final check
+
+**Done when:** `npm run build` and `npm test` pass, there is no `any` in `src`, the console has no errors, and the GitHub link opens in a private window.

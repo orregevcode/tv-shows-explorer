@@ -44,6 +44,6 @@ This page is for a URL that is not list, details, favorites, or stats. The user 
 - When I click a show card, I see that show’s details page (image, genres, rating, summary, schedule) without a full page reload.
 - When I mark a show as a favorite and open Favorites, I see that show on the list; after I refresh, I still see it.
 - When I open Stats, I see genre counts, an average rating, and the five top-rated shows.
-- When I open an address that is not a real page, I see a not-found message and a link back to the list.
+- When I type “break” in the search box, I see only shows whose name contains “break”.
 
 How the app is built (folders, state, data flow) is in [docs/architecture.md](docs/architecture.md).
