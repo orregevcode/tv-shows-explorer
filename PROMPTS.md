@@ -9,3 +9,11 @@
 **00:24 · Cursor**
 
 > make in the folder of arcitecture i gone 10 changes per commit so it be esay to review
+
+**00:53 · my note (Task 3)**
+
+- The Task 3 code came from Claude Code in a separate chat outside the project folder, so those prompts were not logged here.
+- I pasted `api/tvmaze.ts`, `hooks/useShows.ts` and `hooks/useShow.ts` myself. Claude wrote the other 5 files into the repo.
+- Checked: `npm run build` and `npm run lint` pass, 240 shows load, "Loading show..." appears, `/shows/abc` shows "Show not found", no console errors.
+- Problems found while testing: `/shows/abc` stayed on "Loading..." forever, because `Number('abc')` is `NaN` and `NaN !== NaN`. Fixed with `Number.isInteger`. The linter warned about `setState` inside `useEffect`, fixed by storing the id together with the result in `useShow`.
+- Still to check myself: DevTools Network set to Offline shows the error message.
