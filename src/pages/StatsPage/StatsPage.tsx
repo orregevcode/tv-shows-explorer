@@ -1,4 +1,5 @@
-// StatsPage (/stats): ספירה לפי ז'אנר, דירוג ממוצע, 5 המובילות
+// StatsPage (/stats): will show how many shows are in each genre, the average rating and the top 5.
+// For now it's only a title. The real content comes in task 9 (countByGenre, averageRating, topRated).
 import styles from './StatsPage.module.css'
 
 const StatsPage = () => {

@@ -1,7 +1,9 @@
-// NotFoundPage (*): כתובת שלא קיימת + קישור חזרה לרשימה
+// NotFoundPage (*): shown for any address that isn't a real page
+// (the <Route path="*"> in App). It has a link back to the list.
 import { Link } from 'react-router'
 import styles from './NotFoundPage.module.css'
 
+// Link changes the address without reloading the page, so the app keeps its state.
 const NotFoundPage = () => {
   return (
     <main className={styles.notFoundPage}>

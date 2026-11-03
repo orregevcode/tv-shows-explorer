@@ -1,4 +1,4 @@
-// SearchBar: שדה חיפוש. מקבל value ו-onChange ב-props
+// SearchBar: the search box on the home page. It gets value and onChange in props.
 import styles from './SearchBar.module.css'
 
 interface SearchBarProps {
@@ -6,7 +6,10 @@ interface SearchBarProps {
   onChange: (value: string) => void
 }
 
-// controlled input: הערך מגיע מה-state של ההורה, וכל הקלדה מעדכנת אותו דרך onChange
+// A controlled input: its value comes from the parent's state (HomePage's query),
+// and every key press sends the new text back up through onChange.
+// So React always knows exactly what is in the box.
+// <label> around the input: clicking the word "Search" also focuses the box.
 const SearchBar = ({ value, onChange }: SearchBarProps) => {
   return (
     <label className={styles.searchBar}>
@@ -16,7 +19,7 @@ const SearchBar = ({ value, onChange }: SearchBarProps) => {
         type="search"
         placeholder="Search by name..."
         value={value}
-        onChange={(event) => onChange(event.target.value)}
+        onChange={(event) => onChange(event.target.value)} // event.target.value = the text in the box now
       />
     </label>
   )

@@ -1,15 +1,18 @@
-// ShowDetailsPage (/shows/:id): קורא id עם useParams וטוען את הסדרה עם useShow(id)
+// ShowDetailsPage (/shows/:id): one show. It reads the id from the address with useParams,
+// and loads the show with useShow(id).
 import { Link, useParams } from 'react-router'
 import { useShow } from '../../hooks/useShow'
 import StatusMessage from '../../components/StatusMessage/StatusMessage'
 import styles from './ShowDetailsPage.module.css'
 
 const ShowDetailsPage = () => {
-  // useParams מחזיר מחרוזת, לכן ממירים ל-Number
+  // useParams gives back the :id part of the address, always as a string (for example '82'),
+  // so I turn it into a number. For /shows/abc, Number('abc') is NaN, and useShow handles that.
   const { id } = useParams()
   const { show, isLoading, error } = useShow(Number(id))
 
-  // ארבעה מצבים: טוען, שגיאה, לא נמצא, יש מידע
+  // 4 states: loading, error, not found, or the data.
+  // Each `if` returns early, so the code below it runs only when the show really loaded.
   const renderContent = () => {
     if (isLoading) {
       return <StatusMessage type="loading" message="Loading show..." />
@@ -21,8 +24,11 @@ const ShowDetailsPage = () => {
       return <h1 className={styles.title}>Show not found</h1>
     }
 
+    // ?? means: if the left side is null (or undefined), use the right side instead.
     const rating = show.rating.average ?? 'No rating'
 
+    // show.image ? A : B shows the poster if there is one, otherwise a "No image" box.
+    // show.premiered ? ... : null shows the date only if TVmaze has one.
     return (
       <>
         <h1 className={styles.title}>{show.name}</h1>
@@ -39,6 +45,7 @@ const ShowDetailsPage = () => {
     )
   }
 
+  // The "Back to list" link is always there, in every state, so it's outside renderContent.
   return (
     <main className={styles.showDetailsPage}>
       <Link to="/" className={styles.backLink}>

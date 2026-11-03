@@ -1,1 +1,1 @@
-// useFavorites(): state של favoriteIds + שמירה ל-localStorage ב-useEffect. מחזיר { favoriteIds, toggleFavorite }
+// useFavorites(): the favoriteIds state, saved to localStorage in a useEffect. Returns { favoriteIds, toggleFavorite }. (Task 7)

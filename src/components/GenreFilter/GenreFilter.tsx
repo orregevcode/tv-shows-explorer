@@ -1,4 +1,5 @@
-// GenreFilter: select של ז'אנרים. מקבל genres, value ו-onChange ב-props
+// GenreFilter: the genre menu on the home page. It gets genres, value and onChange in props.
+// Like SearchBar, it's controlled: the picked genre lives in HomePage's state.
 import { ALL_GENRES } from '../../utils/shows'
 import styles from './GenreFilter.module.css'
 
@@ -8,6 +9,8 @@ interface GenreFilterProps {
   onChange: (genre: string) => void
 }
 
+// The first option is "All genres" (ALL_GENRES), then map() adds one <option> per genre.
+// key={genre}: every genre name appears only once (getGenres removes duplicates), so it's a safe key.
 const GenreFilter = ({ genres, value, onChange }: GenreFilterProps) => {
   return (
     <label className={styles.genreFilter}>

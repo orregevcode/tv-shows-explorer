@@ -1,4 +1,4 @@
-// HomePage (/): רשימה + חיפוש + סינון לפי ז'אנר. ה-state של query ו-genre נמצא כאן
+// HomePage (/): the list of all the shows, with a search box and a genre filter.
 import { useState } from 'react'
 import type { Show } from '../../types/show'
 import { ALL_GENRES, filterShows, getGenres } from '../../utils/shows'
@@ -15,15 +15,17 @@ interface HomePageProps {
 }
 
 const HomePage = ({ shows, isLoading, error }: HomePageProps) => {
-  // רק העמוד הזה משתמש בחיפוש ובז'אנר, לכן ה-state שלהם כאן ולא ב-App
+  // Only this page uses the search text and the genre, so their state lives here and not in App.
+  // (State goes in the lowest component that needs it.)
   const [query, setQuery] = useState('')
   const [genre, setGenre] = useState(ALL_GENRES)
 
-  // לא שומרים ב-state: מחשבים מחדש בכל רינדור מתוך shows, query ו-genre
+  // These are NOT state: they are worked out again on every render from shows, query and genre.
+  // If they were state too, they could get out of sync with the real data.
   const genres = getGenres(shows)
   const filteredShows = filterShows(shows, query, genre)
 
-  // שלושה מצבים: טוען, שגיאה, יש מידע
+  // 3 states on the screen: loading, error, or the data.
   const renderContent = () => {
     if (isLoading) {
       return <StatusMessage type="loading" message="Loading shows..." />
@@ -31,6 +33,8 @@ const HomePage = ({ shows, isLoading, error }: HomePageProps) => {
     if (error) {
       return <StatusMessage type="error" message={error} />
     }
+    // onChange={setQuery}: SearchBar calls setQuery(newText) on every key press →
+    // HomePage re-renders → filterShows runs again → ShowList gets the new, shorter list.
     return (
       <>
         <div className={styles.toolbar}>

@@ -1,5 +1,6 @@
-// בדיקות Vitest ל-utils/shows.ts. המידע לבדיקה: 5 הסדרות מ-data/sample-shows.json
+// Vitest tests for utils/shows.ts. The test data: the 5 shows from data/sample-shows.json
 // Vikings, Fargo, Death Note, Supernatural, Glee
+// describe() groups the tests of one function. it() is one test. expect(...) checks the result.
 import { describe, expect, it } from 'vitest'
 import type { Show } from '../types/show'
 import sampleShows from '../data/sample-shows.json'
@@ -16,9 +17,11 @@ import {
 
 const shows: Show[] = sampleShows
 
-// סדרה בלי דירוג, כדי לבדוק שהפונקציות מתעלמות מ-null
+// A show with no rating, to check that the functions ignore null.
+// { ...sampleShows[0], ... } copies the first show and changes a few fields.
 const unratedShow: Show = { ...sampleShows[0], id: 999, name: 'No Rating Show', rating: { average: null } }
 
+// Turns a list of shows into a list of names, so the tests are easy to read
 const getNames = (list: Show[]) => list.map((show) => show.name)
 
 describe('filterShows', () => {
@@ -35,7 +38,7 @@ describe('filterShows', () => {
   })
 
   it('combines the search text with the genre', () => {
-    // "e" נמצא ב-Death Note, Supernatural ו-Glee, אבל Death Note הוא לא Drama
+    // "e" is in Death Note, Supernatural and Glee, but Death Note is not a Drama
     expect(getNames(filterShows(shows, 'e', 'Drama'))).toEqual(['Supernatural', 'Glee'])
   })
 
