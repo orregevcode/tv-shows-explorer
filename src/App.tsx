@@ -27,7 +27,10 @@ const App = () => {
         />
         <Route path="/shows/:id" element={<ShowDetailsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/stats" element={<StatsPage />} />
+        <Route
+          path="/stats"
+          element={<StatsPage shows={shows} isLoading={isLoading} error={error} />}
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

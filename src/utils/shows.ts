@@ -75,6 +75,16 @@ export const countByGenre = (shows: Show[]): Record<string, number> => {
   return counts
 }
 
+// The same counts as a list for the stats page, biggest first:
+// [{ genre: 'Drama', count: 154 }, { genre: 'Comedy', count: 60 }, ...]
+// Genres with the same count are sorted A to Z, so the order is always the same.
+export const getGenreCounts = (shows: Show[]): { genre: string; count: number }[] => {
+  // Object.entries turns { Drama: 154 } into [['Drama', 154]], and map turns each pair into an object
+  return Object.entries(countByGenre(shows))
+    .map(([genre, count]) => ({ genre, count }))
+    .sort((a, b) => b.count - a.count || a.genre.localeCompare(b.genre))
+}
+
 // The average rating, rounded to one digit after the dot.
 // Shows with no rating (null) are not counted. If no show has a rating, it returns null.
 export const averageRating = (shows: Show[]): number | null => {

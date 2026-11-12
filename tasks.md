@@ -50,7 +50,7 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 **Done when:** `/favorites` lists only shows I marked; I can remove one there; after refresh the remaining favorites are still there. An empty list shows “No favorites yet.”
 
-## 9. Stats
+## 9. Stats — done
 
 `StatsPage/`, `countByGenre`, `averageRating`, `topRated`
 

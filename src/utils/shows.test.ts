@@ -10,6 +10,7 @@ import {
   countByGenre,
   filterShows,
   formatSchedule,
+  getGenreCounts,
   getGenres,
   stripHtml,
   toggleId,
@@ -102,6 +103,19 @@ describe('countByGenre', () => {
     expect(counts.Drama).toBe(4)
     expect(counts.Action).toBe(2)
     expect(counts.Anime).toBe(1)
+  })
+})
+
+describe('getGenreCounts', () => {
+  it('lists the biggest genres first, and ties from A to Z', () => {
+    const counts = getGenreCounts(shows)
+    // Drama has 4 shows, Action 2, and every other genre has 1, so Anime (A) comes next
+    expect(counts.slice(0, 3)).toEqual([
+      { genre: 'Drama', count: 4 },
+      { genre: 'Action', count: 2 },
+      { genre: 'Anime', count: 1 },
+    ])
+    expect(counts).toHaveLength(11)
   })
 })
 
