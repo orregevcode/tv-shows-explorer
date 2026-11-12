@@ -56,7 +56,7 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 **Done when:** `/stats` shows a count per genre, an average rating that ignores nulls, and the five highest-rated shows.
 
-## 10. Layout and narrow screen
+## 10. Layout and narrow screen — done
 
 All `.module.css` files, `index.css`
 
@@ -68,6 +68,6 @@ All `.module.css` files, `index.css`
 
 **Done when:** `README.md` says what the app does, how to install and run it (`npm run dev`), how to run the tests (`npm test`, `npm run test:ui`), and which API it uses (TVmaze).
 
-## 12. Final check
+## 12. Final check — done
 
 **Done when:** `npm run build` and `npm test` pass, there is no `any` in `src`, the console has no errors, and the GitHub link opens in a private window.
