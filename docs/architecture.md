@@ -163,7 +163,7 @@ import styles from './ShowCard.module.css'
 |---|---|---|---|
 | `useShows` | קורא ל-`fetchShows()` ושומר את התוצאה ב-state | `[]` | פעם אחת, כש-`App` עולה |
 | `useShow` | קורא ל-`fetchShow(id)` | `[id]` | בכל פעם שה-id בכתובת משתנה |
-| `useFavorites` | קורא ל-`saveFavorites(favoriteIds)` | `[favoriteIds]` | בכל שינוי במועדפים |
+| `useFavorites` | שומר את `favoriteIds` ב-localStorage | `[favoriteIds]` | בכל שינוי במועדפים |
 
 **הדפוס של hook שטוען מידע:**
 
@@ -189,7 +189,7 @@ export const useShows = () => {
 ```
 
 - `useShow(id)` בנוי באותה צורה, עם `[id]` כתלות.
-- ב-`useFavorites` הערך ההתחלתי נטען כך: `useState(() => loadFavorites())`. הפונקציה רצה רק ברינדור הראשון, ולא קוראים ל-localStorage בכל רינדור.
+- ב-`useFavorites` הערך ההתחלתי נטען כך: `useState<number[]>(loadFavorites)`. מעבירים את הפונקציה עצמה, בלי לקרוא לה, ולכן React מריץ אותה רק ברינדור הראשון ולא קורא ל-localStorage בכל רינדור.
 - ב-`npm run dev`, ‏`StrictMode` מריץ כל effect פעמיים כדי לחשוף באגים. בגלל ה-cleanup זה לא מזיק.
 
 ## עמודים וכתובות
@@ -258,8 +258,9 @@ graph TD
 ### מועדפים
 1. `useFavorites()` מאתחל את `favoriteIds` עם `loadFavorites()`, ומחזיר `{ favoriteIds, toggleFavorite }`.
 2. `App` מעביר למטה `favoriteIds`, ואת `toggleFavorite` בתור `onToggleFavorite`. הם עוברים ב-props: `HomePage` ← `ShowList` ← `ShowCard` ← `FavoriteButton`.
-3. לחיצה על הכפתור קוראת ל-`onToggleFavorite(show.id)`. ה-hook מעדכן: `setFavoriteIds(toggleId(favoriteIds, id))`.
-4. בתוך ה-hook, `useEffect` עם `[favoriteIds]` שומר ל-localStorage עם `saveFavorites()`.
+3. לחיצה על הכפתור קוראת ל-`onToggleFavorite(show.id)`. ה-hook מעדכן: `setFavoriteIds((currentIds) => toggleId(currentIds, id))`. הצורה הזו מקבלת תמיד את הרשימה העדכנית, גם בלחיצות מהירות.
+4. בתוך ה-hook, `useEffect` עם `[favoriteIds]` שומר את הרשימה ל-localStorage כ-JSON.
+5. `FavoritesPage` מציג רק את הסדרות מהרשימה הכללית שה-id שלהן שמור: `getFavoriteShows(shows, favoriteIds)`.
 
 ## הטיפוסים
 
@@ -289,22 +290,31 @@ export interface Show {
 | `filterShows(shows, query, genre)` | רק הסדרות שמתאימות לחיפוש ולז'אנר | `HomePage` |
 | `getGenres(shows)` | כל הז'אנרים, בלי כפילויות ולפי סדר א"ב | `GenreFilter` |
 | `stripHtml(html)` | טקסט בלי תגיות | `ShowDetailsPage` |
-| `countByGenre(shows)` | `{ Drama: 154, ... }` | `StatsPage` |
+| `formatSchedule(schedule)` | "Sunday at 21:00", רק ימים, או `null` כשאין ימי שידור | `ShowDetailsPage` |
+| `countByGenre(shows)` | `{ Drama: 154, ... }` | `getGenreCounts` |
+| `getGenreCounts(shows)` | `[{ genre: 'Drama', count: 154 }, ...]`, מהגדול לקטן | `StatsPage` |
 | `averageRating(shows)` | ממוצע שמתעלם מ-`null` | `StatsPage` |
 | `topRated(shows, count)` | `count` הסדרות עם הדירוג הגבוה ביותר, בלי לשנות את המקור | `StatsPage` |
 | `toggleId(ids, id)` | מערך חדש, עם ה-id או בלעדיו | `useFavorites` |
-| `loadFavorites()` / `saveFavorites(ids)` | קריאה וכתיבה ל-localStorage | `useFavorites` |
+| `getFavoriteShows(shows, ids)` | רק הסדרות שה-id שלהן במועדפים | `FavoritesPage` |
 
 כל הפונקציות מחזירות ערך חדש ולא משנות את מה שקיבלו. זה מה ש-React צריך כדי לזהות שינוי ב-state.
+
+הקריאה והכתיבה ל-localStorage (`loadFavorites` ושמירה ב-`useEffect`) נמצאות ב-`hooks/useFavorites.ts` ולא כאן, כי הן לא פונקציות טהורות: הן תלויות בדפדפן.
 
 ## בדיקות
 
 `src/utils/shows.test.ts` בודק את הלוגיקה ולא את התצוגה:
 - `filterShows`: מחזירה הכול כשהחיפוש ריק, לא רגישה לאותיות גדולות וקטנות, ומשלבת שם וז'אנר.
 - `stripHtml`: מורידה תגיות, ומחזירה `""` עבור `null`.
+- `formatSchedule`: ימים ושעה, כמה ימים, ימים בלי שעה, ובלי ימים בכלל.
+- `getGenreCounts`: הז'אנר הגדול ראשון, ותיקו לפי א"ב.
 - `averageRating`: מתעלמת מ-`null`, ומחזירה `null` לרשימה ריקה.
 - `topRated`: הסדר נכון, והמערך המקורי לא משתנה.
 - `toggleId`: מוסיפה, מסירה ולא משנה את המערך המקורי.
+- `getFavoriteShows`: לפי סדר הרשימה, ומדלגת על id שלא קיים.
+
+סך הכול 25 בדיקות.
 
 מריצים עם `npm test`, ובדפדפן עם `npm run test:ui`.
 

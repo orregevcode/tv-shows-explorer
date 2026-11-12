@@ -62,7 +62,7 @@ All `.module.css` files, `index.css`
 
 **Done when:** Home, details, favorites, and stats look usable at a wide desktop width and at a phone-width viewport (cards wrap, nav stays readable, no horizontal overflow).
 
-## 11. README
+## 11. README — done
 
 `README.md`
 
