@@ -4,9 +4,16 @@ import { Link, useParams } from 'react-router'
 import { useShow } from '../../hooks/useShow'
 import { formatSchedule, stripHtml } from '../../utils/shows'
 import StatusMessage from '../../components/StatusMessage/StatusMessage'
+import FavoriteButton from '../../components/FavoriteButton/FavoriteButton'
 import styles from './ShowDetailsPage.module.css'
 
-const ShowDetailsPage = () => {
+// The favorites come from App (useFavorites), so this page and the list share the same favorites
+interface ShowDetailsPageProps {
+  favoriteIds: number[]
+  onToggleFavorite: (id: number) => void
+}
+
+const ShowDetailsPage = ({ favoriteIds, onToggleFavorite }: ShowDetailsPageProps) => {
   // useParams gives back the :id part of the address, always as a string (for example '82'),
   // so I turn it into a number. For /shows/abc, Number('abc') is NaN, and useShow handles that.
   const { id } = useParams()
@@ -44,7 +51,13 @@ const ShowDetailsPage = () => {
           <div className={styles.noPoster}>No image</div>
         )}
         <div>
-          <h1 className={styles.title}>{show.name}</h1>
+          <div className={styles.titleRow}>
+            <h1 className={styles.title}>{show.name}</h1>
+            <FavoriteButton
+              isFavorite={favoriteIds.includes(show.id)}
+              onClick={() => onToggleFavorite(show.id)}
+            />
+          </div>
           <p className={styles.rating}>⭐ {rating}</p>
           {show.genres.length > 0 ? <p className={styles.meta}>{show.genres.join(' · ')}</p> : null}
           <p className={styles.meta}>

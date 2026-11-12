@@ -10,6 +10,7 @@ import {
   countByGenre,
   filterShows,
   formatSchedule,
+  getFavoriteShows,
   getGenreCounts,
   getGenres,
   stripHtml,
@@ -165,5 +166,17 @@ describe('toggleId', () => {
     const result = toggleId(ids, 3)
     expect(result).not.toBe(ids)
     expect(ids).toEqual([1, 2])
+  })
+})
+
+describe('getFavoriteShows', () => {
+  it('keeps only the favorite shows, in the order of the full list', () => {
+    // Death Note (40) was saved before Vikings (29), but Vikings comes first in the list
+    expect(getNames(getFavoriteShows(shows, [40, 29]))).toEqual(['Vikings', 'Death Note'])
+  })
+
+  it('skips ids that are not in the list, and returns nothing for no favorites', () => {
+    expect(getNames(getFavoriteShows(shows, [12345, 8]))).toEqual(['Glee'])
+    expect(getFavoriteShows(shows, [])).toEqual([])
   })
 })

@@ -129,3 +129,9 @@ export const toggleId = (ids: number[], id: number): number[] => {
   // [...ids, id] = a copy of the old array with the new id at the end
   return [...ids, id]
 }
+
+// The shows whose id is in favoriteIds, in the same order as the full list.
+// Ids that aren't in the list are skipped.
+export const getFavoriteShows = (shows: Show[], favoriteIds: number[]): Show[] => {
+  return shows.filter((show) => favoriteIds.includes(show.id))
+}

@@ -1,4 +1,4 @@
-/* עיצוב גלובלי בלבד. העיצוב של כל רכיב נמצא ב-.module.css שלו */
+/* Global styles only: colors, font and body. Each component's own styles are in its .module.css file */
 :root {
   --color-bg: #f5f5f7;
   --color-surface: #ffffff;
@@ -6,6 +6,7 @@
   --color-muted: #6e6e73;
   --color-border: #d2d2d7;
   --color-primary: #3d5afe;
+  --color-favorite: #e0245e;
 
   font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.5;

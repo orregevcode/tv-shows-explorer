@@ -9,6 +9,23 @@
 }
 
 .message {
-  margin: 0;
+  margin: 0 0 1rem;
   color: var(--color-muted);
+}
+
+.empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  background: var(--color-surface);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.15);
+}
+
+.browseLink {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: white;
+  text-decoration: none;
 }

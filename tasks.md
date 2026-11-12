@@ -38,13 +38,13 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 **Done when:** On `/shows/:id` I see summary as plain text (no HTML tags) plus schedule / air days, along with image, genres, and rating.
 
-## 7. Favorites hook and button
+## 7. Favorites hook and button — done
 
 `hooks/useFavorites.ts`, `FavoriteButton/`, `App.tsx`
 
 **Done when:** On a card and on the details page I can toggle a favorite; the heart state updates immediately.
 
-## 8. Favorites page
+## 8. Favorites page — done
 
 `FavoritesPage/`
 

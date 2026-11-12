@@ -31,6 +31,18 @@
   margin: 0 0 0.5rem;
 }
 
+/* The show's name with the heart button next to it */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.titleRow .title {
+  margin: 0;
+}
+
 .poster,
 .noPoster {
   width: 100%;

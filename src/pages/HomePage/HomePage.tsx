@@ -12,9 +12,11 @@ interface HomePageProps {
   shows: Show[]
   isLoading: boolean
   error: string | null
+  favoriteIds: number[]
+  onToggleFavorite: (id: number) => void
 }
 
-const HomePage = ({ shows, isLoading, error }: HomePageProps) => {//getting the props 
+const HomePage = ({ shows, isLoading, error, favoriteIds, onToggleFavorite }: HomePageProps) => {//getting the props
   // Only this page uses the search text and the genre, so their state lives here and not in App.
   // (State goes in the lowest component that needs it.)
   const [query, setQuery] = useState('')
@@ -51,7 +53,11 @@ const HomePage = ({ shows, isLoading, error }: HomePageProps) => {//getting the 
         <p className={styles.count}>
           Showing {filteredShows.length} of {shows.length} shows
         </p>
-        <ShowList shows={filteredShows} />
+        <ShowList
+          shows={filteredShows}
+          favoriteIds={favoriteIds}
+          onToggleFavorite={onToggleFavorite}
+        />
       </>
     )
   }
