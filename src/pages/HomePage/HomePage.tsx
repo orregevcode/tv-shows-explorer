@@ -1,7 +1,7 @@
 // HomePage (/): the list of all the shows, with a search box and a genre filter.
 import { useState } from 'react'
 import type { Show } from '../../types/show'
-import { ALL_GENRES, filterShows, getGenres } from '../../utils/shows'
+import { ALL_GENRES, filterShows, getGenres } from '../../utils/shows'//export logic function from utils 
 import SearchBar from '../../components/SearchBar/SearchBar'
 import GenreFilter from '../../components/GenreFilter/GenreFilter'
 import ShowList from '../../components/ShowList/ShowList'
@@ -14,16 +14,22 @@ interface HomePageProps {
   error: string | null
 }
 
-const HomePage = ({ shows, isLoading, error }: HomePageProps) => {
+const HomePage = ({ shows, isLoading, error }: HomePageProps) => {//getting the props 
   // Only this page uses the search text and the genre, so their state lives here and not in App.
   // (State goes in the lowest component that needs it.)
   const [query, setQuery] = useState('')
   const [genre, setGenre] = useState(ALL_GENRES)
 
-  // These are NOT state: they are worked out again on every render from shows, query and genre.
-  // If they were state too, they could get out of sync with the real data.
+ 
+
+  // Import reusable business logic functions from utils.
+// getGenres extracts the available genres.
+// filterShows filters the shows by search text and selected genre.
   const genres = getGenres(shows)
   const filteredShows = filterShows(shows, query, genre)
+
+  // const genres1 = getGenres(shows);
+  // console.log(genres);
 
   // 3 states on the screen: loading, error, or the data.
   const renderContent = () => {
@@ -37,6 +43,7 @@ const HomePage = ({ shows, isLoading, error }: HomePageProps) => {
     // HomePage re-renders → filterShows runs again → ShowList gets the new, shorter list.
     return (
       <>
+      
         <div className={styles.toolbar}>
           <SearchBar value={query} onChange={setQuery} />
           <GenreFilter genres={genres} value={genre} onChange={setGenre} />

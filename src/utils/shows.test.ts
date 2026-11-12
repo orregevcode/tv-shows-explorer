@@ -9,6 +9,7 @@ import {
   averageRating,
   countByGenre,
   filterShows,
+  formatSchedule,
   getGenres,
   stripHtml,
   toggleId,
@@ -72,6 +73,26 @@ describe('stripHtml', () => {
 
   it('returns an empty string when there is no summary', () => {
     expect(stripHtml(null)).toBe('')
+  })
+})
+
+describe('formatSchedule', () => {
+  it('shows the days and the time', () => {
+    // Vikings: { time: '21:00', days: ['Friday'] }
+    expect(formatSchedule(shows[0].schedule)).toBe('Friday at 21:00')
+  })
+
+  it('joins several days with commas', () => {
+    expect(formatSchedule({ time: '20:00', days: ['Monday', 'Tuesday'] })).toBe('Monday, Tuesday at 20:00')
+  })
+
+  it('shows only the days when there is no time', () => {
+    // Glee: { time: '', days: ['Friday'] }
+    expect(formatSchedule(shows[4].schedule)).toBe('Friday')
+  })
+
+  it('returns null when there are no days', () => {
+    expect(formatSchedule({ time: '21:00', days: [] })).toBeNull()
   })
 })
 

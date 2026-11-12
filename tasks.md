@@ -32,7 +32,7 @@ Build order from the table at the end of [docs/architecture.md](docs/architectur
 
 **Done when:** On `/` I can type a name and pick a genre; the list shrinks to matches (case-insensitive), and a query with no matches shows the empty message.
 
-## 6. Full details page
+## 6. Full details page — done
 
 `ShowDetailsPage/`, `stripHtml`
 

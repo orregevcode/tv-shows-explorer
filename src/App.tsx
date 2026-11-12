@@ -10,9 +10,7 @@ import StatsPage from './pages/StatsPage/StatsPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 const App = () => {
-  // Load all the shows ONCE here, because more than one page needs them (list, favorites, stats).
   // Props drilling: the shows are passed down through props, App → HomePage → ShowList → ShowCard.
-  // At this size that is fine. In a bigger app, React Context could stop passing props through every level.
   const { shows, isLoading, error } = useShows()
 
   // <> </> is a Fragment: it groups NavBar and Routes without adding an extra <div> to the page.
@@ -25,7 +23,7 @@ const App = () => {
       <Routes>
         <Route
           path="/"
-          element={<HomePage shows={shows} isLoading={isLoading} error={error} />}
+          element={<HomePage shows={shows} isLoading={isLoading} error={error} />}//passing the props 
         />
         <Route path="/shows/:id" element={<ShowDetailsPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />

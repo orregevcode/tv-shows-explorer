@@ -2,6 +2,7 @@
 // and loads the show with useShow(id).
 import { Link, useParams } from 'react-router'
 import { useShow } from '../../hooks/useShow'
+import { formatSchedule, stripHtml } from '../../utils/shows'
 import StatusMessage from '../../components/StatusMessage/StatusMessage'
 import styles from './ShowDetailsPage.module.css'
 
@@ -26,22 +27,48 @@ const ShowDetailsPage = () => {
 
     // ?? means: if the left side is null (or undefined), use the right side instead.
     const rating = show.rating.average ?? 'No rating'
+    // "Sunday at 21:00", or null when TVmaze has no airing days for this show
+    const schedule = formatSchedule(show.schedule)
+    // stripHtml turns "<p><b>Lost</b> is...</p>" into plain text.
+    // || (and not ??) because stripHtml gives back an empty string '' when there is no summary,
+    // and || also replaces '', while ?? only replaces null and undefined.
+    const summary = stripHtml(show.summary) || 'No summary available.'
 
     // show.image ? A : B shows the poster if there is one, otherwise a "No image" box.
-    // show.premiered ? ... : null shows the date only if TVmaze has one.
+    // Lines like {schedule ? <p>...</p> : null} show a fact only if TVmaze has it.
     return (
-      <>
-        <h1 className={styles.title}>{show.name}</h1>
+      <article className={styles.details}>
         {show.image ? (
           <img className={styles.poster} src={show.image.medium} alt={show.name} />
         ) : (
           <div className={styles.noPoster}>No image</div>
         )}
-        <p className={styles.meta}>⭐ {rating}</p>
-        <p className={styles.meta}>{show.genres.join(' · ')}</p>
-        {show.premiered ? <p className={styles.meta}>Premiered {show.premiered}</p> : null}
-        <p className={styles.meta}>{show.status}</p>
-      </>
+        <div>
+          <h1 className={styles.title}>{show.name}</h1>
+          <p className={styles.rating}>⭐ {rating}</p>
+          {show.genres.length > 0 ? <p className={styles.meta}>{show.genres.join(' · ')}</p> : null}
+          <p className={styles.meta}>
+            <span className={styles.label}>Status:</span> {show.status}
+          </p>
+          {show.premiered ? (
+            <p className={styles.meta}>
+              <span className={styles.label}>Premiered:</span> {show.premiered}
+            </p>
+          ) : null}
+          {schedule ? (
+            <p className={styles.meta}>
+              <span className={styles.label}>Airs:</span> {schedule}
+            </p>
+          ) : null}
+          {show.language ? (
+            <p className={styles.meta}>
+              <span className={styles.label}>Language:</span> {show.language}
+            </p>
+          ) : null}
+          <h2 className={styles.subtitle}>Summary</h2>
+          <p className={styles.summary}>{summary}</p>
+        </div>
+      </article>
     )
   }
 

@@ -1,6 +1,10 @@
-// utils/shows.ts: pure logic, with no React inside.
-// A pure function gets data and gives back NEW data. It never changes what it got,
-// and the same input always gives the same output. That makes it easy to test (see shows.test.ts).
+// This file contains reusable business logic, independent of React.
+// I can reuse these functions with another framework, such as Vue or Angular,
+// without changing the business logic.
+// If I switch from React to Vue in the future, I only need to rewrite
+// the UI components and framework-specific code.
+// Functions like filterShows, getGenres, countByGenre and averageRating
+// will remain the same because they use plain TypeScript and do not depend on React.
 import type { Show } from '../types/show'
 
 // The value of the genre <select> when no genre is picked
@@ -42,6 +46,18 @@ export const stripHtml = (html: string | null): string => {
   // The regular expression /<[^>]*>/g means: "<", then anything that isn't ">", then ">".
   // g = replace every match, not only the first one.
   return html.replace(/<[^>]*>/g, '').trim()
+}
+
+// When the show airs, as one line of text, for example "Sunday at 21:00".
+// Show['schedule'] = the type of the schedule field inside Show: { time: string; days: string[] }.
+// Some shows have days but no time ("Friday"), and some have no days at all (null = show nothing).
+export const formatSchedule = (schedule: Show['schedule']): string | null => {
+  if (schedule.days.length === 0) {
+    return null
+  }
+  const days = schedule.days.join(', ') // ['Monday', 'Tuesday'] → "Monday, Tuesday"
+  // An empty string '' counts as false, so a missing time gives just the days
+  return schedule.time ? `${days} at ${schedule.time}` : days
 }
 
 // ---------- Stats page ----------
